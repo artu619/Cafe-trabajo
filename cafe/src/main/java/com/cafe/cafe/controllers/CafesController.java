@@ -1,4 +1,4 @@
-package com.cafe.cafe.controll;
+package com.cafe.cafe.controllers;
 
 import com.cafe.cafe.model.Cafe;
 import org.springframework.web.bind.annotation.RestController;
