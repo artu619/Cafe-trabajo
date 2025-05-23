@@ -1,13 +1,32 @@
 package com.cafe.cafe.model;
 
+/**
+ * Clase que representa un pedido en el sistema de cafetería.
+ * Esta entidad relaciona a un cliente con un producto de café y la cantidad solicitada.
+ */
 public class Pedido {
+    /** Identificador único del pedido */
     private Long id;
+    
+    /** Identificador del cliente que realiza el pedido */
     private Long clienteId;
+    
+    /** Identificador del café solicitado */
     private Long cafeId;
+    
+    /** Cantidad de unidades del café solicitadas */
     private int cantidad;
 
+    /** Constructor por defecto requerido para la serialización */
     public Pedido() {}
 
+    /**
+     * Constructor con parámetros para crear un nuevo pedido
+     * @param id Identificador único del pedido
+     * @param clienteId Identificador del cliente
+     * @param cafeId Identificador del café
+     * @param cantidad Cantidad solicitada
+     */
     public Pedido(Long id, Long clienteId, Long cafeId, int cantidad) {
         this.id = id;
         this.clienteId = clienteId;
