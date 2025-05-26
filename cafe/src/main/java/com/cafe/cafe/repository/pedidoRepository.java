@@ -1,8 +1,13 @@
-// PedidoRepository.java
 package com.cafe.cafe.repository;
 
-import com.cafe.cafe.model.Pedido;
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.cafe.cafe.model.Pedido;
+
+@Repository
 public interface PedidoRepository extends JpaRepository<Pedido, Long> {
-}
+    List<Pedido> findByCliente_Id(Long clienteId);
+} 
