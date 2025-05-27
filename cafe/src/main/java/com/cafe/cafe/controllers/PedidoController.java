@@ -1,8 +1,9 @@
 package com.cafe.cafe.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cafe.cafe.model.Pedido;
@@ -25,8 +27,12 @@ public class PedidoController {
     private PedidoService pedidoService;
 
     @GetMapping
-    public ResponseEntity<List<Pedido>> obtenerPedidos() {
-        return ResponseEntity.ok(pedidoService.getAllPedidos());
+    public ResponseEntity<Page<Pedido>> obtenerPedidos(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "id") String sortBy) {
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by(sortBy));
+        return ResponseEntity.ok(pedidoService.getAllPedidos(pageRequest));
     }
 
     @GetMapping("/{id}")
@@ -39,8 +45,13 @@ public class PedidoController {
     }
 
     @GetMapping("/cliente/{clienteId}")
-    public ResponseEntity<List<Pedido>> obtenerPedidosPorCliente(@PathVariable Long clienteId) {
-        return ResponseEntity.ok(pedidoService.getPedidosByClienteId(clienteId));
+    public ResponseEntity<Page<Pedido>> obtenerPedidosPorCliente(
+            @PathVariable Long clienteId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "id") String sortBy) {
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by(sortBy));
+        return ResponseEntity.ok(pedidoService.getPedidosByClienteId(clienteId, pageRequest));
     }
 
     @PostMapping

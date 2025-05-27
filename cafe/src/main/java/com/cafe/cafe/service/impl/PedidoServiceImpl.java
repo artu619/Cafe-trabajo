@@ -1,8 +1,8 @@
 package com.cafe.cafe.service.impl;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,8 +18,16 @@ public class PedidoServiceImpl implements PedidoService {
     private PedidoRepository pedidoRepository;
 
     @Override
-    public List<Pedido> getAllPedidos() {
-        return pedidoRepository.findAll();
+    public Page<Pedido> getAllPedidos(Pageable pageable) {
+        return pedidoRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<Pedido> getPedidosByClienteId(Long clienteId, Pageable pageable) {
+        if (clienteId == null) {
+            throw new IllegalArgumentException("El ID del cliente no puede ser nulo");
+        }
+        return pedidoRepository.findByClienteId(clienteId, pageable);
     }
 
     @Override
@@ -86,13 +94,5 @@ public class PedidoServiceImpl implements PedidoService {
             throw new RuntimeException("Pedido no encontrado con ID: " + id);
         }
         pedidoRepository.deleteById(id);
-    }
-
-    @Override
-    public List<Pedido> getPedidosByClienteId(Long clienteId) {
-        if (clienteId == null) {
-            throw new IllegalArgumentException("El ID del cliente no puede ser nulo");
-        }
-        return pedidoRepository.findByCliente_Id(clienteId);
     }
 } 

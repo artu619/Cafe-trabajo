@@ -1,8 +1,8 @@
 package com.cafe.cafe.service.impl;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,8 +18,8 @@ public class CafeServiceImpl implements CafeService {
     private CafeRepository cafeRepository;
 
     @Override
-    public List<Cafe> getAllCafes() {
-        return cafeRepository.findAll();
+    public Page<Cafe> getAllCafes(Pageable pageable) {
+        return cafeRepository.findAll(pageable);
     }
 
     @Override
