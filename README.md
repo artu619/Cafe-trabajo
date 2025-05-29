@@ -127,7 +127,3 @@ El proyecto utiliza Spring Boot DevTools para facilitar el desarrollo, permitien
 - Mejoras en la experiencia de desarrollo
 - Soporte para hilos virtuales en Java 21
 
-
-## Licencia
-
-Este proyecto está bajo la Licencia MIT.
